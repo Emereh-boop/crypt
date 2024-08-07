@@ -348,7 +348,7 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px]"
               >
                 <div
-                  class="flex items-center justify-center ring-[2pt] ring-amber-400 rounded-full"
+                  class="flex items-center justify-center ring-[2pt] ring-primary rounded-full"
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -373,7 +373,7 @@
                         memoryInfo?.memory?.total) *
                         circumference +
                         circumference}
-                      class="text-[#E5B910]"
+                      class="text-primary"
                     />
                   </svg>
                   <span class="absolute font-bold text-black text-[20px]">
@@ -397,7 +397,7 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px] flex-col"
               >
                 <div
-                  class="flex items-center justify-center ring-[2pt] ring-amber-400 rounded-full"
+                  class="flex items-center justify-center ring-[2pt] ring-primary rounded-full"
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -422,7 +422,7 @@
                         memoryInfo?.memory?.total) *
                         circumference +
                         circumference}
-                      class="text-[#E5B910]"
+                      class="text-primary"
                     />
                   </svg>
                   <span class="absolute font-bold text-black text-[20px]">
@@ -445,7 +445,7 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px] flex-col"
               >
                 <div
-                  class="flex items-center justify-center ring-[2pt] ring-amber-400 rounded-full"
+                  class="flex items-center justify-center ring-[2pt] ring-primary rounded-full"
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -470,7 +470,7 @@
                         memoryInfo?.memory?.total) *
                         circumference +
                         circumference}
-                      class="text-[#E5B910]"
+                      class="text-primary"
                     />
                   </svg>
                   <span class="absolute font-bold text-black text-[20px]">
@@ -494,7 +494,7 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px] flex-col"
               >
                 <div
-                  class="flex items-center justify-center ring-[2pt] ring-amber-400 rounded-full"
+                  class="flex items-center justify-center ring-[2pt] ring-primary rounded-full"
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -519,7 +519,7 @@
                         memoryInfo?.memory?.total) *
                         circumference +
                         circumference}
-                      class="text-[#E5B910]"
+                      class="text-primary"
                     />
                   </svg>
                   <span class="absolute font-bold text-black text-[20px]">
