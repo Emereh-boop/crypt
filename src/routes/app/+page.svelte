@@ -348,7 +348,11 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px]"
               >
                 <div
+<<<<<<< HEAD
                   class="flex items-center justify-center ring-[2pt] ring-blue-900 rounded-full"
+=======
+                  class="flex items-center justify-center ring-[2pt] ring-primary rounded-full"
+>>>>>>> 48e536971ae88cd28506f9e0cb4ca95eaffa8091
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -397,7 +401,11 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px] flex-col"
               >
                 <div
+<<<<<<< HEAD
                   class="flex items-center justify-center ring-[2pt] ring-blue-900 rounded-full"
+=======
+                  class="flex items-center justify-center ring-[2pt] ring-primary rounded-full"
+>>>>>>> 48e536971ae88cd28506f9e0cb4ca95eaffa8091
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -445,7 +453,11 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px] flex-col"
               >
                 <div
+<<<<<<< HEAD
                   class="flex items-center justify-center ring-[2pt] ring-blue-900 rounded-full"
+=======
+                  class="flex items-center justify-center ring-[2pt] ring-primary rounded-full"
+>>>>>>> 48e536971ae88cd28506f9e0cb4ca95eaffa8091
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -494,7 +506,11 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px] flex-col"
               >
                 <div
+<<<<<<< HEAD
                   class="flex items-center justify-center ring-[2pt] ring-blue-900 rounded-full"
+=======
+                  class="flex items-center justify-center ring-[2pt] ring-primary rounded-full"
+>>>>>>> 48e536971ae88cd28506f9e0cb4ca95eaffa8091
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
