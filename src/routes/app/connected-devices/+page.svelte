@@ -250,8 +250,8 @@
           use:link
           class="flex items-start md:col-span-1 col-span-2"
         >
-          <img src="/back-icon.svg" alt="logout-icon" class="w-[24px]" />
-          <span class="text-[16.95px] font-bold ml-2 text-black">Back</span>
+          <img src="/back-icon.svg" alt="logout-icon" class="w-[24px] fill-primary" />
+          <span class="text-[16.95px] font-bold ml-2 text-primary">Back</span>
         </a>
         <div class="md:col-span-1 col-span-2 grid grid-cols-2 gap-[16px]">
           <div

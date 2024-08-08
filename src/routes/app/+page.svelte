@@ -193,7 +193,7 @@
             <div class="flex items-center justify-center">
               <a
                 href="#/connected-devices"
-                class="col-span-full my-[4px] ml-3 flex"
+                class="col-span-full my-[4px] ml-3 flex text-primary font-bold"
                 >View All Devices <img
                   src="/foward-icon.svg"
                   class="w-[12.41px] ml-[7px]"
@@ -244,7 +244,7 @@
             >
               <img
                 class="h-[24px] w-[24px]"
-                src={SignalStrenght}
+                src={SignalStrenght} 
                 alt="Signal Strenght"
               />
               <div class="flex flex-col">
@@ -348,7 +348,7 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px]"
               >
                 <div
-                  class="flex items-center justify-center ring-[2pt] ring-amber-400 rounded-full"
+                  class="flex items-center justify-center ring-[2pt] ring-blue-900 rounded-full"
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -373,7 +373,7 @@
                         memoryInfo?.memory?.total) *
                         circumference +
                         circumference}
-                      class="text-[#E5B910]"
+                      class="text-primary"
                     />
                   </svg>
                   <span class="absolute font-bold text-black text-[20px]">
@@ -397,7 +397,7 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px] flex-col"
               >
                 <div
-                  class="flex items-center justify-center ring-[2pt] ring-amber-400 rounded-full"
+                  class="flex items-center justify-center ring-[2pt] ring-blue-900 rounded-full"
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -422,7 +422,7 @@
                         memoryInfo?.memory?.total) *
                         circumference +
                         circumference}
-                      class="text-[#E5B910]"
+                      class="text-primary"
                     />
                   </svg>
                   <span class="absolute font-bold text-black text-[20px]">
@@ -445,7 +445,7 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px] flex-col"
               >
                 <div
-                  class="flex items-center justify-center ring-[2pt] ring-amber-400 rounded-full"
+                  class="flex items-center justify-center ring-[2pt] ring-blue-900 rounded-full"
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -470,7 +470,7 @@
                         memoryInfo?.memory?.total) *
                         circumference +
                         circumference}
-                      class="text-[#E5B910]"
+                      class="text-primary"
                     />
                   </svg>
                   <span class="absolute font-bold text-black text-[20px]">
@@ -494,7 +494,7 @@
                 class="text-center col-span-1 items-center justify-center text-lg grid gap-[14px] flex-col"
               >
                 <div
-                  class="flex items-center justify-center ring-[2pt] ring-amber-400 rounded-full"
+                  class="flex items-center justify-center ring-[2pt] ring-blue-900 rounded-full"
                 >
                   <svg class="transform -rotate-90 w-[120px] h-[120px]">
                     <circle
@@ -519,7 +519,7 @@
                         memoryInfo?.memory?.total) *
                         circumference +
                         circumference}
-                      class="text-[#E5B910]"
+                      class="text-primary"
                     />
                   </svg>
                   <span class="absolute font-bold text-black text-[20px]">

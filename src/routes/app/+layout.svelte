@@ -53,9 +53,9 @@
 
   onMount(() => {
     fetchFirmwareVersion();
-    authCheck();
+    //authCheck();
     refreshInterval = setInterval(() => {
-      authCheck();
+      //authCheck();
     }, 5000);
     return () => {
       clearInterval(refreshInterval);
@@ -63,20 +63,20 @@
   });
 </script>
 
-<title>MTN-NG</title>
+<title>Wicrypt</title>
 <div class="flex flex-col min-h-screen w-">
   <header class="bg-primary">
     <div class="w-full container px-2 md:px-0 mx-auto">
       <div class="flex justify-between text-[13px] text-black">
         <div class="mt-[30px] mb-4">
-          <img src="/logo.svg" alt="mtn-logo" class="w-[85px]" />
-          <div class="ml-[8px] font-normal leading-[14.95px] mt-[4px]">
-            Setup Your MTN Hotspot Hub
+          <img src="/logo.svg" alt="wicrypt-logo" class="w-[85px]" />
+          <div class="ml-[8px] font-normal leading-[14.95px] mt-[4px] text-white">
+            Setup Your Wicrypt Hotspot Hub
           </div>
         </div>
         <div class="flex self-center gap-[23px]">
-          <img src="/logout-icon.svg" alt="logout-icon" class="w-[16px]" />
-          <a href="/" class="mr-[1vw]">Logout</a>
+          <img src="/logout-icon.svg" alt="logout-icon" class="w-[16px]"/>
+          <a href="/" class="mr-[1vw] text-white">Logout</a>
         </div>
       </div>
 
@@ -94,7 +94,7 @@
               use:link
               use:active={{
                 path: "/overview",
-                className: "text-black font-bold",
+                className: "text-white font-bold",
               }}>Overview</a
             >
           </li>
@@ -129,7 +129,7 @@
               use:link
               use:active={{
                 path: "/myhub",
-                className: "text-black font-bold",
+                className: "text-white font-bold",
               }}>My Hub</a
             >
           </li>
@@ -145,7 +145,7 @@
               use:link
               use:active={{
                 path: "/settings",
-                className: "text-black font-bold",
+                className: "text-white font-bold",
               }}>Settings</a
             >
           </li>
