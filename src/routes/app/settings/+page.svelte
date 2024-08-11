@@ -26,7 +26,7 @@
     if (formData.get("ssid") !== oldSsid) {
       try {
         const response = await fetch(
-          "http://192.168.0.1:8080/cgi-bin/api.cgi",
+          "http://192.168.4.4:8080/cgi-bin/api.cgi",
           {
             method: "POST",
             credentials: "include",
@@ -56,7 +56,7 @@
     ) {
       try {
         const response = await fetch(
-          "http://192.168.0.1:8080/cgi-bin/api.cgi",
+          "http://192.168.4.4:8080/cgi-bin/api.cgi",
           {
             method: "POST",
             credentials: "include",
@@ -91,7 +91,7 @@
 
   const fetchWifis = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {

@@ -13,7 +13,7 @@ function IfDevicesInfo()
     local result = {}
     for _, device in ipairs(devices) do
         for _, vif in ipairs(device.vifs) do
-            if vif.vifname == 'ra0' or vif.vifname == 'rai0' then
+            if vif.vifname == 'wlan0' or vif.vifname == 'wlan1/' then
                 table.insert(result, {
                     devname = device.devname,
                     vifs_prefix = device.vifs.__prefix,
@@ -173,9 +173,9 @@ end
 
 function DhcpLease()
     print("\r\n")
-    local cusor = io.open("/tmp/dnsmasq.leases", "r")
+    local cusor = io.open("/tmp/dhcp.leases", "r")
     if cusor == nil then
-        return jsonc.stringify({ data = {}, success = false, error = "Failed to open dnsmasq.leases" })
+        return jsonc.stringify({ data = {}, success = false, error = "Failed to open dhcp.leases" })
     end
     local content = cusor:read("*all")
     cusor:close()

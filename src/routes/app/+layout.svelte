@@ -13,7 +13,7 @@
   // };
   const authCheck = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -34,7 +34,7 @@
 
   const fetchFirmwareVersion = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -69,7 +69,7 @@
     <div class="w-full container px-2 md:px-0 mx-auto">
       <div class="flex justify-between text-[13px] text-white">
         <div class="mt-[30px] mb-4">
-          <img src="/dist/logo.svg" alt="wicrypt-logo" class="w-[85px]" />
+          <img src="/logo.svg" alt="wicrypt-logo" class="w-[85px]" />
           <div class="ml-[8px] font-normal leading-[14.95px] mt-[4px]">
             Setup Your Wicrypt Hotspot Hub
           </div>

@@ -14,7 +14,7 @@
 
   const fetchRegStatus = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -37,7 +37,7 @@
 
   const fetchFirmwareStatus = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -77,7 +77,7 @@
         );
         showProgress = true;
         const response = await fetch(
-          "http://192.168.0.1:8080/cgi-bin/api.cgi",
+          "http://192.168.4.4:8080/cgi-bin/api.cgi",
           {
             method: "POST",
             credentials: "include",
@@ -93,7 +93,7 @@
         if (resp.success) {
           progress = 90;
           const response_e = await fetch(
-            "http://192.168.0.1:8080/cgi-bin/api.cgi",
+            "http://192.168.4.4:8080/cgi-bin/api.cgi",
             {
               method: "POST",
               credentials: "include",
@@ -131,7 +131,7 @@
     } else {
       try {
         const response = await fetch(
-          "http://192.168.0.1:8080/cgi-bin/api.cgi",
+          "http://192.168.4.4:8080/cgi-bin/api.cgi",
           {
             method: "POST",
             credentials: "include",
@@ -188,7 +188,7 @@
         (100 * 1000) / 100
       );
       showProgress = true;
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -202,7 +202,7 @@
       if (resp.success) {
         progress = 90;
         const response_e = await fetch(
-          "http://192.168.0.1:8080/cgi-bin/api.cgi",
+          "http://192.168.4.4:8080/cgi-bin/api.cgi",
           {
             method: "POST",
             credentials: "include",
@@ -258,7 +258,7 @@
     const formData = new FormData(event.target);
     const code = formData.get("code");
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
