@@ -12,6 +12,7 @@
   let signalStrenght: {};
   let systemInfo: {};
   let memoryInfo: {};
+  
 
   const fetchWifiData = async () => {
     try {
@@ -193,7 +194,7 @@
             <div class="flex items-center justify-center">
               <a
                 href="#/connected-devices"
-                class="col-span-full my-[4px] ml-3 flex"
+                class="col-span-full my-[4px] ml-3 flex text-primary font-bold"
                 >View All Devices <img
                   src="/foward-icon.svg"
                   class="w-[12.41px] ml-[7px]"
@@ -244,7 +245,7 @@
             >
               <img
                 class="h-[24px] w-[24px]"
-                src={SignalStrenght}
+                src={SignalStrenght} 
                 alt="Signal Strenght"
               />
               <div class="flex flex-col">
