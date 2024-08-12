@@ -16,7 +16,7 @@
 
   const fetchWifiData = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -34,7 +34,7 @@
   };
   const fetchTransferSpeed = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -52,7 +52,7 @@
   };
   const fetchSignalStrenght = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -79,7 +79,7 @@
 
   const fetchDhcpLeases = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -100,7 +100,7 @@
 
   const fetchSystemInfo = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -118,7 +118,7 @@
   };
   const fetchMemoryInfo = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {

@@ -1,7 +1,7 @@
 <title>MTN-NG</title>
 <body class="flex flex-col min-h-screen">
   <header class="flex justify-center">
-    <img src="/logo.svg" alt="mtn-log" class="w-[80px] h-[40px] mt-[50px]" />
+    <img src="/logo.svg" alt="mtn-log" class="w-[80px] h-[40px] mt-[50px] bg-primary" />
   </header>
   <main class="flex-grow">
     <slot />

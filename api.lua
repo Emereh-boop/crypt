@@ -13,7 +13,7 @@ function IfDevicesInfo()
     local result = {}
     for _, device in ipairs(devices) do
         for _, vif in ipairs(device.vifs) do
-            if vif.vifname == 'ra0' or vif.vifname == 'rai0' then
+            if vif.vifname == 'wlan0'  then
                 table.insert(result, {
                     devname = device.devname,
                     vifs_prefix = device.vifs.__prefix,
@@ -100,7 +100,7 @@ end
 function RegisterDevice(email, pin)
     print("\r\n")
     local mac = util.ubus("luci-rpc", "getNetworkDevices", {}).br0.mac
-    local wireless = util.ubus("iwinfo", "info", { device = "ra0" })
+    local wireless = util.ubus("iwinfo", "info", { device = "wlan0" })
 
     local brd_info = util.ubus("system", "board")
 

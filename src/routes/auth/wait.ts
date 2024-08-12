@@ -3,7 +3,7 @@ import { redirect } from "@sveltejs/kit";
 export const actions = {
   default: async ({ cookies, request }) => {
     const req = await request.formData();
-    const response = await fetch("http://192.168.0.1/cgi-bin/api.cgi", {
+    const response = await fetch("http://192.168.4.4/cgi-bin/api.cgi", {
       method: "POST",
       credentials: "include",
       headers: {
