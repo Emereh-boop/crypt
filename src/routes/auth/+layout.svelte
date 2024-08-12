@@ -1,7 +1,11 @@
-<title>MTN-NG</title>
+<title>Wicrypt</title>
 <body class="flex flex-col min-h-screen">
   <header class="flex justify-center">
-    <img src="/logo.svg" alt="mtn-log" class="w-[80px] h-[40px] mt-[50px] bg-primary" />
+    <img
+      src="/logo.svg"
+      alt="wicrypt-logo"
+      class="w-[80px] h-[40px] mt-[50px]"
+    />
   </header>
   <main class="flex-grow">
     <slot />

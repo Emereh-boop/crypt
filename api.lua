@@ -13,14 +13,20 @@ function IfDevicesInfo()
     local result = {}
     for _, device in ipairs(devices) do
         for _, vif in ipairs(device.vifs) do
-            if vif.vifname == 'wlan0'  then
+            if vif.vifname == 'wlan0' then
+                -- Print device and vif data
+                print("Device data:", device)
+                print("VIF data:", vif)
+                print("Success")
+                print("\r\n")
+                
+                -- Insert the vif data into the result table
                 table.insert(result, {
                     devname = device.devname,
                     vifs_prefix = device.vifs.__prefix,
                     ssid = vif.__ssid,
                     encrypttype = vif.__encrypttype,
-                    authmode =
-                        vif.__authmode,
+                    authmode = vif.__authmode,
                     vifname = vif.vifname,
                     hidessid = vif.__hidessid,
                     vifidx = vif.vifidx,
@@ -162,20 +168,20 @@ end
 
 function transferSpeed()
     print("\r\n")
-    local res = util.exec('vnstat -tr -i br0 --json')
+    local res = util.exec('vnstat -tr -i wlan0 --json')
     return jsonc.stringify({ data = jsonc.parse(res) , success = true, error = nil })
 end
 function signalStrenght()
     print("\r\n") 
-    local res = util.exec('iwconfig ra0 | awk \'/Link Quality/ { print $2}\'    ')
+    local res = util.exec('ifconfig wlan0 | awk \'/Link Quality/ { print $2}\'    ')
     return jsonc.stringify({ data = res , success = true, error = nil }) 
 end
 
 function DhcpLease()
     print("\r\n")
-    local cusor = io.open("/tmp/dnsmasq.leases", "r")
+    local cusor = io.open("/tmp/dhcp.leases", "r")
     if cusor == nil then
-        return jsonc.stringify({ data = {}, success = false, error = "Failed to open dnsmasq.leases" })
+        return jsonc.stringify({ data = {}, success = false, error = "Failed to open dhcp.leases" })
     end
     local content = cusor:read("*all")
     cusor:close()

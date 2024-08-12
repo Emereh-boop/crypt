@@ -19,7 +19,7 @@
 
   const fetchDhcpLeases = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -53,7 +53,7 @@
   };
   const fetchTransferSpeed = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -71,7 +71,7 @@
   };
   const fetchWhitelisted = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -94,7 +94,7 @@
     modalOpen = false;
     let devName = event.target.devName.value;
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -111,7 +111,7 @@
       if (res.isSuccessful === true) {
         successMsg = res.message;
         whitelisted = [...whitelisted, { macAddress: mac, name: devName }];
-        fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+        fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
           method: "POST",
           credentials: "include",
           headers: {
@@ -133,7 +133,7 @@
     errorMsg = null;
     successMsg = null;
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -150,7 +150,7 @@
         console.log(res.message);
         successMsg = res.message;
         whitelisted = whitelisted.filter((wl) => wl.macAddress !== mac);
-        fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+        fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
           method: "POST",
           credentials: "include",
           headers: {
@@ -170,7 +170,7 @@
 
   const fetchDataUsage = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -201,7 +201,7 @@
   };
   const fetchFirmwareStatus = async () => {
     try {
-      const response = await fetch("http://192.168.0.1:8080/cgi-bin/api.cgi", {
+      const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
         credentials: "include",
         headers: {

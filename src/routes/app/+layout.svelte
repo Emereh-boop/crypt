@@ -53,9 +53,9 @@
 
   onMount(() => {
     fetchFirmwareVersion();
-    //authCheck();
+    authCheck();
     refreshInterval = setInterval(() => {
-      //authCheck();
+      authCheck();
     }, 5000);
     return () => {
       clearInterval(refreshInterval);
@@ -70,12 +70,12 @@
       <div class="flex justify-between text-[13px] text-white">
         <div class="mt-[30px] mb-4">
           <img src="/logo.svg" alt="wicrypt-logo" class="w-[85px]" />
-          <div class="ml-[8px] font-normal leading-[14.95px] mt-[4px] text-white">
+          <div class="ml-[8px] font-normal leading-[14.95px] mt-[4px]">
             Setup Your Wicrypt Hotspot Hub
           </div>
         </div>
         <div class="flex self-center gap-[23px]">
-          <img src="/logout-icon.svg" alt="logout-icon" class="w-[16px]"/>
+          <img src="/logout-icon.svg" alt="logout-icon" class="w-[16px]" />
           <a href="/" class="mr-[1vw] text-white">Logout</a>
         </div>
       </div>
