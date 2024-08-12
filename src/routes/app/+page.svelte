@@ -12,7 +12,6 @@
   let signalStrenght: {};
   let systemInfo: {};
   let memoryInfo: {};
-  
 
   const fetchWifiData = async () => {
     try {
@@ -152,6 +151,12 @@
   });
 
   const circumference = ((2 * 22) / 7) * 50;
+
+  // Function to convert to number and validate
+  function toNumber(value) {
+    const num = Number(value);
+    return isNaN(num) ? null : num;
+  }
 </script>
 
 <Layout>
@@ -174,33 +179,44 @@
       <div>
         <div class="grid grid-cols-2 gap-[16px]">
           <div
-            class="grid grid-5 col-span-2 md:col-span-1 px-[28px] py-[17px] gap-[16px] ring-[1px] ring-[#E5B910]/20 h-auto lg:h-[171px] rounded-[20px]"
+            class="grid grid-5 col-span-2 md:col-span-1 px-[28px] py-[17px] gap-[16px] ring-[1px] ring-[#E5B910]/20 h-auto lg:h-auto rounded-[20px]"
           >
-            <span class="col-span-full text-[16.95px] font-bold mt-5 text-black"
-              >Connected Devices <span class=" font-semibold leading-6"
-                >[ {dhcpLeases?.length ?? 0} ]</span
-              ></span
+            <span
+              class="col-span-full text-[16.95px] font-bold mt-5 text-black"
             >
-            {#each dhcpLeases ?? [] as lease, i}
-              <div class="col-span-3 flex">
-                <div class="flex-1">
-                  <span class=" font-bold text-black font-mono"
-                    >[ {i + 1} ]
-                  </span>{lease.clientName}
+              Connected Devices <span class="font-semibold leading-6"
+                >[ {dhcpLeases?.length ?? 0} ]</span
+              >
+            </span>
+
+            {#if Array.isArray(dhcpLeases) && dhcpLeases.length > 0}
+              {#each dhcpLeases.slice(0, 5) as lease, i}
+                <!-- Truncate to first 5 devices -->
+                <div class="col-span-3 flex">
+                  <div class="flex-1">
+                    <span class="font-bold text-black font-mono"
+                      >[ {i + 1} ]</span
+                    >{lease.clientName}
+                  </div>
+                  <div class="flex-1">{lease.mac}</div>
                 </div>
-                <div class="flex-1">{lease.mac}</div>
-              </div>
-            {/each}
+              {/each}
+            {:else}
+              <div>No devices found.</div>
+            {/if}
+
             <div class="flex items-center justify-center">
               <a
                 href="#/connected-devices"
                 class="col-span-full my-[4px] ml-3 flex text-primary font-bold"
-                >View All Devices <img
+              >
+                View All Devices
+                <img
                   src="/foward-icon.svg"
                   class="w-[12.41px] ml-[7px]"
                   alt="view-all-connected-devices-icon"
-                /></a
-              >
+                />
+              </a>
             </div>
           </div>
           <div
@@ -245,14 +261,18 @@
             >
               <img
                 class="h-[24px] w-[24px]"
-                src={SignalStrenght} 
-                alt="Signal Strenght"
+                src={SignalStrenght}
+                alt="Signal Strength"
               />
               <div class="flex flex-col">
-                <span class="text-[12px] font-[400]">Signal Strenght</span>
-                <span class="text-[12px] font-[700] text-[#1D1D1D]"
-                  >{signalStrenght ? `${signalStrenght} dbm` : "0 dbm"}</span
-                >
+                <span class="text-[12px] font-[400]">Signal Strength</span>
+                <span class="text-[12px] font-[700] text-[#1D1D1D]">
+                  {#if toNumber(signalStrenght) !== null}
+                    {`${toNumber(signalStrenght)} dbm`}
+                  {:else}
+                    -- dbm
+                  {/if}
+                </span>
               </div>
             </div>
           </div>
@@ -275,7 +295,7 @@
             >
             <div class="grid grid-cols-3 mt-2">
               <span class=" col-span-1">Host Name</span>
-              <span class=" col-span-2">MTN-WICRYPT</span>
+              <span class=" col-span-2">{systemInfo?.hostname}</span>
             </div>
             <div class="grid grid-cols-3 mt-2">
               <span class=" col-span-1">Model</span>
@@ -283,7 +303,7 @@
             </div>
             <div class="grid grid-cols-3 mt-2">
               <span class=" col-span-1">Architecture</span>
-              <span class=" col-span-2">{systemInfo?.board_name}</span>
+              <span class=" col-span-2">{systemInfo?.system}</span>
             </div>
             <div class="grid grid-cols-3 mt-2">
               <span class=" col-span-1">Kernel Version</span>
@@ -307,27 +327,12 @@
               >wireless Info</span
             >
             <div class="grid grid-cols-3 mt-2">
-              <span class=" col-span-1">SSID 2.4G</span>
-              <span class=" col-span-2"
-                >{wifiData ? wifiData[0].ssid : "--"}</span
-              >
+              <span class=" col-span-1">SSID</span>
+              <span class=" col-span-2">{wifiData ? wifiData.ssid : "--"}</span>
             </div>
             <div class="grid grid-cols-3 mt-2">
-              <span class=" col-span-1">BSSID 2.4G</span>
-              <span class=" col-span-2"
-                >{wifiData ? wifiData[0].bssid : "--"}</span
-              >
-            </div>
-            <div class="grid grid-cols-3 mt-2">
-              <span class=" col-span-1">SSID 5G</span>
-              <span class=" col-span-2"
-                >{wifiData ? wifiData[1].ssid : "--"}</span
-              >
-            </div>
-            <div class="grid grid-cols-3 mt-2">
-              <span class=" col-span-1">BSSID 5G</span>
-              <span class=" col-span-2"
-                >{wifiData ? wifiData[1].bssid : "--"}</span
+              <span class=" col-span-1">BSSID </span>
+              <span class=" col-span-2">{wifiData ? wifiData.bssid : "--"}</span
               >
             </div>
           </div>
