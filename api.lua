@@ -12,7 +12,7 @@ local SERVER  = "https://device-api-stg.wicrypt.com"
 function IfDevicesInfo()
     local result = {}
     for _, device in ipairs(devices) do
-        for _, vif in ipairs(device.vifs) do
+        for _, vif in ipairs(device.vifs) do            
             if vif.vifname == 'wlan0' then
                 -- Print device and vif data
                 print("Device data:", device)
@@ -160,10 +160,24 @@ function MemoryInfo()
     return jsonc.stringify({ data = memory_info, success = true, error = nil })
 end
 
+-- function Wireless()
+--     print("\r\n")
+--     local wifis = IfDevicesInfo()
+--     return jsonc.stringify({ data = wifis, success = true, error = nil })
+-- end
+
 function Wireless()
     print("\r\n")
-    local wifis = IfDevicesInfo()
-    return jsonc.stringify({ data = wifis, success = true, error = nil })
+   -- local wifis = IfDevicesInfo()
+    local iwinfoattributes = util.ubus("luci-rpc", "getWirelessDevices")
+    local Ssid = iwinfoattributes.radio0.interfaces[1].iwinfo.ssid
+    local Bssid = iwinfoattributes.radio0.interfaces[1].iwinfo.bssid
+    -- local result = {}
+    local result = {
+                    ssid = Ssid,
+                    bssid = Bssid
+                }
+    return jsonc.stringify({ data = result, success = true, error = nil })
 end
 
 function transferSpeed()

@@ -31,6 +31,8 @@
       }
     } catch {}
   };
+
+  
   const fetchTransferSpeed = async () => {
     try {
       const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
@@ -328,11 +330,11 @@
             >
             <div class="grid grid-cols-3 mt-2">
               <span class=" col-span-1">SSID</span>
-              <span class=" col-span-2">{wifiData ? wifiData.ssid : "--"}</span>
+              <span class=" col-span-2">{wifiData?.ssid}</span>
             </div>
             <div class="grid grid-cols-3 mt-2">
               <span class=" col-span-1">BSSID </span>
-              <span class=" col-span-2">{wifiData ? wifiData.bssid : "--"}</span
+              <span class=" col-span-2">{wifiData?.bssid}</span
               >
             </div>
           </div>

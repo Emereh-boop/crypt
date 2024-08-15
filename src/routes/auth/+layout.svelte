@@ -4,7 +4,7 @@
     <img
       src="/logo.svg"
       alt="wicrypt-logo"
-      class="w-[80px] h-[40px] mt-[50px]"
+      class="w-[80px] h-[40px] mt-[50px] bg-primary border rounded-[10px] px-1"
     />
   </header>
   <main class="flex-grow">
