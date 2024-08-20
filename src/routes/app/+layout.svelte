@@ -53,9 +53,9 @@
 
   onMount(() => {
     fetchFirmwareVersion();
-    // authCheck();
+    authCheck();
     refreshInterval = setInterval(() => {
-      // authCheck();
+      authCheck();
     }, 5000);
     return () => {
       clearInterval(refreshInterval);

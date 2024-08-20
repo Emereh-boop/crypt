@@ -213,9 +213,9 @@
                 id="key2g"
                 name="key"
                 placeholder="******"
-                disabled={wifiData[0]?.authmode !== "WPA2PSK"}
+                disabled={wifiData?.authmode !== "WPA2PSK"}
                 required
-                value={wifiData[0]?.wpapsk}
+                value={wifiData?.wpapsk}
                 minlength="8"
                 class="flex-1 font-mono text-gray-400 h-[35px] border rounded-[16px] border-gray-100 focus:border-primary focus:outline-none hover:border-primary px-[19px]"
               />
