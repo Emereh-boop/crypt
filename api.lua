@@ -3,41 +3,65 @@
 local util    = require("luci.util")
 local sys     = require("luci.sys")
 local jsonc   = require("luci.jsonc")
-local mtkwifi = require("mtkwifi")
+-- local mtkwifi = require("mtkwifi")
 local uci     = require("luci.model.uci").cursor()
-local devices = mtkwifi.get_all_devs()
+-- local devices = mtkwifi.get_all_devs()
 
 local SERVER  = "https://device-api-stg.wicrypt.com"
 
+--function to get devive infomation
 function IfDevicesInfo()
     local result = {}
-    for _, device in ipairs(devices) do
-        for _, vif in ipairs(device.vifs) do            
-            if vif.vifname == 'wlan0' then
-                -- Print device and vif data
-                print("Device data:", device)
-                print("VIF data:", vif)
-                print("Success")
-                print("\r\n")
-                
-                -- Insert the vif data into the result table
-                table.insert(result, {
-                    devname = device.devname,
-                    vifs_prefix = device.vifs.__prefix,
-                    ssid = vif.__ssid,
-                    encrypttype = vif.__encrypttype,
-                    authmode = vif.__authmode,
-                    vifname = vif.vifname,
-                    hidessid = vif.__hidessid,
-                    vifidx = vif.vifidx,
-                    wpapsk = vif.__wpapsk,
-                    bssid = vif.__bssid
-                })
-            end
-        end
+
+    -- Run iwinfo command to get wireless interface information
+    local handle = io.popen("iwinfo wlan0 info")
+    local iwinfo_output = handle:read("*a")
+    handle:close()
+
+    -- Obtain devname using ip link show
+    local handle = io.popen("ip link show wlan0")
+    local link_output = handle:read("*a")
+    handle:close()
+    local devname = link_output:match("^%d+: (%S+):")
+
+    -- Obtain WPA-PSK from configuration file (if available)
+    local wpapsk = "UNKNOWN"
+    handle = io.popen("sudo cat /etc/wpa_supplicant/wpa_supplicant.conf 2>/dev/null")
+    local wpa_output = handle:read("*a")
+    handle:close()
+    if wpa_output then
+        wpapsk = wpa_output:match('psk="(.-)"') or "UNKNOWN"
     end
+
+    -- VIF prefix and index
+    local vifs_prefix = "vif_prefix"  -- Placeholder, replace if your system has a method to retrieve it
+    local vifidx = 0  -- Set to 0 by default
+
+    -- Extract information from iwinfo output
+    local ssid = iwinfo_output:match('ESSID: "([^"]+)"')
+    local bssid = iwinfo_output:match('Access Point: ([%x:]+)')
+    local encrypttype = iwinfo_output:match('Encryption: (%w+)')
+    local authmode = iwinfo_output:match('Mode: (%w+)')
+    local hidessid = iwinfo_output:match('Hidden: (%w+)')
+    local vifname = "wlan0"  -- Since we're specifically querying wlan0
+
+    -- Insert the extracted and placeholder data into the result table
+    table.insert(result, {
+        devname = devname or "UNKNOWN",
+        vifs_prefix = vifs_prefix,
+        ssid = ssid or "UNKNOWN",
+        encrypttype = encrypttype or "UNKNOWN",
+        authmode = authmode or "UNKNOWN",
+        vifname = vifname,
+        hidessid = hidessid or "no",
+        vifidx = vifidx,
+        wpapsk = wpapsk,
+        bssid = bssid or "UNKNOWN"
+    })
+
     return result
 end
+
 
 function SessionRetrieve(session_id)
     local session = util.ubus("session", "get", { ubus_rpc_session = session_id })
@@ -320,7 +344,7 @@ end
 function LinkHub(code)
     print("\r\n")
     local ifInfo = IfDevicesInfo()
-    local mac = util.ubus("luci-rpc", "getNetworkDevices", {}).br0.mac
+    local mac = util.ubus("luci-rpc", "getNetworkDevices", {}).wlan0.mac
     local brd_info = util.ubus("system", "board")
     local license = uci:get("wicrypt", "licence", "key")
     local imei = util.exec("cat /tmp/.devinfo_module_data | grep \"module_imei\" | cut -d':' -f2")

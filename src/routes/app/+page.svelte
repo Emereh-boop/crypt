@@ -32,7 +32,6 @@
     } catch {}
   };
 
-  
   const fetchTransferSpeed = async () => {
     try {
       const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
@@ -334,8 +333,7 @@
             </div>
             <div class="grid grid-cols-3 mt-2">
               <span class=" col-span-1">BSSID </span>
-              <span class=" col-span-2">{wifiData?.bssid}</span
-              >
+              <span class=" col-span-2">{wifiData?.bssid}</span>
             </div>
           </div>
         </div>
@@ -426,7 +424,7 @@
                       fill="transparent"
                       stroke-dasharray={circumference}
                       stroke-dashoffset={((memoryInfo?.memory?.total -
-                        memoryInfo?.memory?.available) /
+                        memoryInfo?.memory?.free) /
                         memoryInfo?.memory?.total) *
                         circumference +
                         circumference}
@@ -435,8 +433,7 @@
                   </svg>
                   <span class="absolute font-bold text-black text-[20px]">
                     {Math.round(
-                      ((memoryInfo?.memory?.total -
-                        memoryInfo?.memory?.available) /
+                      ((memoryInfo?.memory?.total - memoryInfo?.memory?.free) /
                         memoryInfo?.memory?.total) *
                         100
                     )}%

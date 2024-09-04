@@ -218,9 +218,16 @@
                 type={show2g ? "text" : "password"}
                 id="key2g"
                 name="key"
+<<<<<<< HEAD
                 placeholder="******"  
                 disabled={wifiData?.encryption !== "wpa2psk"}              
                 value={wifiData?.key}
+=======
+                placeholder="******"
+                disabled={wifiData?.authmode !== "WPA2PSK"}
+                required
+                value={wifiData?.wpapsk}
+>>>>>>> a69f8f98d69cc586fd1debae1829331592db894d
                 minlength="8"
                 class="flex-1 font-mono text-gray-400 h-[35px] border rounded-[16px] border-gray-100 focus:border-primary focus:outline-none hover:border-primary px-[19px]"
                 
