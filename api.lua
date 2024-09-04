@@ -172,10 +172,15 @@ function Wireless()
     local iwinfoattributes = util.ubus("luci-rpc", "getWirelessDevices")
     local Ssid = iwinfoattributes.radio0.interfaces[1].iwinfo.ssid
     local Bssid = iwinfoattributes.radio0.interfaces[1].iwinfo.bssid
+    local Key = iwinfoattributes.radio0.interfaces[1].config.key
+    local Encryption = iwinfoattributes.radio0.interfaces[1].config.encryption
+
     -- local result = {}
     local result = {
                     ssid = Ssid,
-                    bssid = Bssid
+                    bssid = Bssid,
+                    key = Key,
+                    encryption = Encryption
                 }
     return jsonc.stringify({ data = result, success = true, error = nil })
 end
@@ -222,33 +227,47 @@ end
 
 function WifiDevices()
     print("\r\n")
-    local result = IfDevicesInfo()
+    local result = IfDevicesInfo()    
     return jsonc.stringify({ data = result, success = true, error = nil })
 end
+
 
 function ChangeSsid(devname, newssid)
     print("\r\n")
     if devname == "5G" then
         util.exec("wc_wifi_config ssid5 " .. newssid)
     elseif devname == "2.4G" then
-        util.exec("wc_wifi_config ssid2.4 " .. newssid)
+        util.exec("uci set wireless.@wifi-iface[0].ssid='"..newssid.."'")
+        util.exec("uci commit wireless")
+        util.exec("/etc/init.d/network restart")
     end
     return jsonc.stringify({ success = true, error = nil })
 end
 
-function ChangeWirelessAuthConfig(devname, authmode, key)
+
+function ChangeWirelessAuthConfig(devname, encryption, key)
     print("\r\n")
     if devname == "5G" and key ~= nil then
         util.exec("wc_wifi_config pwd5 " .. key)
     end
-    if devname == "2.4G" and key ~= nil then
-        util.exec("wc_wifi_config pwd2.4 " .. key)
+    if devname == "2.4G" and key ~= nil and encryption == "psk2" then
+        util.exec("uci set wireless.@wifi-iface[0].encryption="..encryption)
+        util.exec("uci set wireless.@wifi-iface[0].key='"..key.."'")
+        util.exec("uci commit wireless")
+        util.exec("/etc/init.d/network restart")
+    elseif devname == "2.4G" and encryption == "none" then
+        util.exec("uci set wireless.@wifi-iface[0].encryption="..encryption)
+        util.exec("uci commit wireless")
+        util.exec("/etc/init.d/network restart")
     end
-    if devname == "5G" and authmode ~= nil then
-        util.exec("wc_wifi_config enc5 " .. authmode)
-    elseif devname == "2.4G" and authmode ~= nil then
-        util.exec("wc_wifi_config enc2.4 " .. authmode)
-    end
+    
+    -- if devname == "5G" and authmode ~= nil then
+    --     util.exec("wc_wifi_config enc5 " .. authmode)
+    -- elseif devname == "2.4G" and encryption ~= nil then
+    --     util.exec("uci set wireless.@wifi-iface[0].encryption="..encryption)
+    --     util.exec("uci commit wireless")
+    --     util.exec("/etc/init.d/network restart")
+    -- end
     return jsonc.stringify({ success = true, error = nil })
 end
 
@@ -426,7 +445,7 @@ local function api()
         elseif cmd == "change_ssid" then
             return ChangeSsid(json_data.devname, json_data.newssid)
         elseif cmd == "change_wireless_key" then
-            return ChangeWirelessAuthConfig(json_data.devname, json_data.authmode, json_data.newkey)
+            return ChangeWirelessAuthConfig(json_data.devname, json_data.newEncryption, json_data.newkey)
         elseif cmd == "setup_firmw" then
             return DownloadFirmwFile()
         elseif cmd == "whitelisted" then
@@ -452,6 +471,13 @@ local function api()
         return jsonc.stringify({ error = "Method not allowed", success = false })
     end
 end
+
+local function test()
+    local encryption = "psk2"
+    util.exec("uci set wireless.@wifi-iface[0].encryption="..encryption)
+    util.exec("uci commit wireless")
+    util.exec("/etc/init.d/network restart")
+end 
 
 local http_method = os.getenv("REQUEST_METHOD")
 if http_method == "OPTIONS" then

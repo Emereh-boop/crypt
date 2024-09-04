@@ -7,6 +7,7 @@
   let show5g = false;
   let wifiData: Array<any> | null = [];
   let progress= Number<any> = 10
+  let encryption = '';
 
   const saveChanges = async (event: any) => {
     event.preventDefault();
@@ -14,16 +15,20 @@
     successMsg = null;
     const formData = new FormData(event.target);
     let deviceName = "2.4G";
-    let oldSsid = wifiData[0].ssid;
-    let oldKey = wifiData[0].wpapsk;
-    let oldAuthmode = wifiData[0].authmode;
+    let oldSsid = wifiData?.ssid;
+    console.log(oldSsid);
+    let oldKey = wifiData?.key;
+    console.log(oldKey);
+    let oldAuthmode = wifiData?.encryption;
     if (event.target.id === "wifiForm5g") {
       deviceName = "5G";
       oldSsid = wifiData[1].ssid;
-      oldKey = wifiData[1].wpapsk;
+      oldKey = wifiData[1].wpa2psk;
       oldAuthmode = wifiData[1].authmode;
     }
     if (formData.get("ssid") !== oldSsid) {
+      console.log(formData.get("ssid"));
+      console.log(deviceName);
       try {
         const response = await fetch(
           "http://192.168.4.4:8080/cgi-bin/api.cgi",
@@ -52,8 +57,10 @@
     }
     if (
       formData.get("key") !== oldKey ||
-      formData.get("security") !== oldAuthmode
+      formData.get("auth") !== oldAuthmode      
     ) {
+      console.log(formData.get("key"));
+      console.log(formData.get("auth"));
       try {
         const response = await fetch(
           "http://192.168.4.4:8080/cgi-bin/api.cgi",
@@ -68,12 +75,8 @@
               devname: deviceName,
               newkey:
                 formData.get("key") !== oldKey ? formData.get("key") : null,
-              authmode:
-                formData.get("auth") !== oldAuthmode
-                  ? formData.get("auth") === "WPA2PSK"
-                    ? 2
-                    : 0
-                  : null,
+              newEncryption:
+                formData.get("auth") === "wpa2psk"? "psk2" : "none",  
             }),
           },
         );
@@ -89,7 +92,7 @@
     }
   };
 
-  const fetchWifis = async () => {
+  const fetchWifiData = async () => {
     try {
       const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
         method: "POST",
@@ -98,7 +101,7 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          cmd: "wifis",
+          cmd: "wireless",
         }),
       });
       const resp = await response.text();
@@ -118,7 +121,7 @@
         }
 
   onMount(() => {
-    fetchWifis();
+    fetchWifiData();
   });
 </script>
 
@@ -179,8 +182,9 @@
                 id="ssid2g"
                 name="ssid"
                 placeholder="WiFi Name"
+                
                 on:input={(event) => validateInput(event)}
-                value={wifiData[0]?.ssid}
+                value={wifiData?.ssid}
                 required
                 minlength="1"
                 class="flex-1 font-mono text-gray-400 h-[35px] border rounded-[16px] border-gray-100 focus:border-primary focus:outline-none hover:border-primary px-[19px]"
@@ -196,11 +200,11 @@
               <select
                 id="auth2g"
                 name="auth"
-                value={wifiData[0]?.authmode}
+                bind:value={wifiData.encryption}
                 class="flex-1 font-mono text-gray-400 focus:outline-none h-[35px] border rounded-[16px] border-gray-100 focus-visible:border-primary active:border-primary hover:border-primary px-[19px]"
               >
-                <option value="OPEN">OPEN</option>
-                <option value="WPA2PSK">WPA2PSK</option>
+                <option value="none">OPEN</option>
+                <option value="wpa2psk">WPA2PSK</option>
               </select>
             </div>
             <!-- Password  -->
@@ -208,28 +212,33 @@
               <label for="key2g" class="text-gray-400 w-[141px]"
                 >WiFi Password:
               </label>
+
+              
               <input
                 type={show2g ? "text" : "password"}
                 id="key2g"
                 name="key"
-                placeholder="******"
-                disabled={wifiData[0]?.authmode !== "WPA2PSK"}
-                required
-                value={wifiData[0]?.wpapsk}
+                placeholder="******"  
+                disabled={wifiData?.encryption !== "wpa2psk"}              
+                value={wifiData?.key}
                 minlength="8"
                 class="flex-1 font-mono text-gray-400 h-[35px] border rounded-[16px] border-gray-100 focus:border-primary focus:outline-none hover:border-primary px-[19px]"
+                
               />
             </div>
             <!-- Show password -->
             <div class="flex items-center mb-[20px]">
               <label for="show2g" class="text-gray-400 w-[141px] flex-none"
               ></label>
+              <!-- disabled={wifiData[0]?.authmode !== "WPA2PSK"} -->
+              
+
               <input
                 type="checkbox"
                 id="show2g"
                 name="show2g"
                 class="h-[17px] w-[17px] rounded-sm before:content[''] peer relative cursor-pointer appearance-none border border-primary transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-primary before:opacity-0 before:transition-opacity checked:border-primary checked:bg-primary checked:before:bg-primary hover:before:opacity-10"
-                disabled={wifiData[0]?.authmode !== "WPA2PSK"}
+                disabled={wifiData?.encryption !== "wpa2psk"}             
                 on:click={() => (show2g = !show2g)}
               />
               <label for="show" class="text-gray-400 ml-[10px]"
@@ -247,10 +256,10 @@
           </button>
         </form>
       </div>
-      <hr class="my-10 h-[1px] border-none bg-[#c4c4c4]" />
+      <!-- <hr class="my-10 h-[1px] border-none bg-[#c4c4c4]" />
       <div class="w-full max-w-[450px]">
         <form on:submit={saveChanges} id="wifiForm5g">
-          <!-- SSID  -->
+          SSID 
           <div class="flex flex-col justify-between">
             <div
               class="flex items-center gap-[12px] justify-between mb-[20px] mt-[30px]"
@@ -275,9 +284,9 @@
                 minlength="1"
                 class="flex-1 font-mono w-[239px] text-gray-400 h-[35px] border rounded-[16px] border-gray-100 focus:border-primary focus:outline-none hover:border-primary px-[19px]"
               />
-            </div>
+            </div> -->
             <!-- Security Mode  -->
-            <div class="flex items-center mb-[20px]">
+            <!-- <div class="flex items-center mb-[20px]">
               <label
                 for="security5g"
                 class="text-gray-400 w-[141px] items-center flex gap-[3px]"
@@ -292,9 +301,9 @@
                 <option value="OPEN">OPEN</option>
                 <option value="WPA2PSK">WPA2PSK</option>
               </select>
-            </div>
+            </div> -->
             <!-- Password  -->
-            <div class="flex items-center mb-[20px]">
+            <!-- <div class="flex items-center mb-[20px]">
               <label for="key5g" class="text-gray-400 w-[141px]"
                 >WiFi Password:
               </label>
@@ -309,9 +318,9 @@
                 minlength="8"
                 class="flex-1 font-mono text-gray-400 h-[35px] border rounded-[16px] border-gray-100 focus:border-primary focus:outline-none hover:border-primary px-[19px]"
               />
-            </div>
+            </div> -->
             <!-- Show password -->
-            <div class="flex items-center mb-[20px]">
+            <!-- <div class="flex items-center mb-[20px]">
               <label for="show5g" class="text-gray-400 w-[141px] flex-none"
               ></label>
               <input
@@ -326,17 +335,17 @@
                 >Show Password</label
               >
             </div>
-          </div>
+          </div> -->
 
           <!-- Save Change -->
-          <button
+          <!-- <button
             type="submit"
             class="ml-[141px] text-[14px] px-6 bg-primary text-white h-[35px] rounded-[20px]"
           >
             Save Changes
           </button>
         </form>
-      </div>
+      </div> -->
       <hr class="my-10 h-[1px] border-none bg-[#c4c4c4]" />
       <div class="flex flex-col justify-between h-[209px]">
         <div class="col-span-2 flex flex-col">
