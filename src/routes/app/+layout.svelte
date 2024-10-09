@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  
+import { onMount } from "svelte";
   import { link, replace } from "svelte-spa-router";
   import active from "svelte-spa-router/active";
 
@@ -50,6 +51,9 @@
       }
     } catch {}
   };
+ 
+  
+
 
   onMount(() => {
     fetchFirmwareVersion();
@@ -95,8 +99,7 @@
               use:active={{
                 path: "/overview",
                 className: "text-white font-bold",
-              }}>Overview</a
-            >
+              }}>Overview</a>
           </li>
           <!-- <li
             class="py-2 px-4"
@@ -161,6 +164,6 @@
   >
     <div>Copyright Wicrypt All Right Reserved © 2024</div>
     <div class=" text-gray-100">Powered by Wicrypt OS</div>
-    <div>Firmware Version {firmwareVersion ?? "-.-.-"}</div>
+    <div>Firmware Version {firmwareVersion ??"--.--.--"}</div>
   </footer>
 </div>

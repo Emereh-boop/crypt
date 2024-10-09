@@ -4,10 +4,14 @@
   let errorMsg: string | null = null;
   let successMsg: string | null = null;
   let show2g = false;
-  let show5g = false;
-  let wifiData: Array<any> | null = [];
+  let show5g = false; 
+  let wifiData: Array<any> | null = [];  
   let progress= Number<any> = 10
   let encryption = '';
+  let isUpdating = false;
+  let info = '';
+   
+  
 
   const saveChanges = async (event: any) => {
     event.preventDefault();
@@ -109,7 +113,8 @@
       const json = JSON.parse(jsonPart);
       wifiData = json.data;
     } catch (e) {}
-  };
+  }; 
+
   
   function validateInput(event) {
             const input = event.target.value;
@@ -120,10 +125,51 @@
             }
         }
 
+        
+
   onMount(() => {
-    fetchWifiData();
+    fetchWifiData(); 
+      
   });
+
+
+  const fetchUpgradeFirmware = async () => {
+  
+
+  try {
+    info = "Device will restart after the update.";  // Show this once the process starts
+    isUpdating = true;
+
+    const response = await fetch("http://192.168.4.4:8080/cgi-bin/api.cgi", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cmd: "upgrade_firmw", // The correct command for upgrading the firmware
+      }),
+    });
+
+    // Check if the request was successful 
+    if (response.ok) {
+      info = "Firmware update in progress";
+    } else {
+      info = `Firmware update failed! Status: ${response.status}`;
+    }
+  } catch (error) {
+    // Handle any network or runtime errors
+    info = "Error occurred during firmware update!";
+    console.error("Error:", error);
+  } finally {
+    isUpdating = false; // Ensure isUpdating is reset even if an error occurs
+  }
+
+  return true; // Return true to indicate the function has finished
+};
 </script>
+
+
 
 <SettingsLayout>
   <div class="lg:grid lg:grid-cols-12 container mx-auto">
@@ -218,16 +264,9 @@
                 type={show2g ? "text" : "password"}
                 id="key2g"
                 name="key"
-<<<<<<< HEAD
                 placeholder="******"  
                 disabled={wifiData?.encryption !== "wpa2psk"}              
                 value={wifiData?.key}
-=======
-                placeholder="******"
-                disabled={wifiData?.authmode !== "WPA2PSK"}
-                required
-                value={wifiData?.wpapsk}
->>>>>>> a69f8f98d69cc586fd1debae1829331592db894d
                 minlength="8"
                 class="flex-1 font-mono text-gray-400 h-[35px] border rounded-[16px] border-gray-100 focus:border-primary focus:outline-none hover:border-primary px-[19px]"
                 
@@ -369,17 +408,22 @@
             <p class="font-[700] text-[14px] text-[#1d1d1d]">Wicrypt OS</p>
           </div>
           <hr />
+          {#if info} <!-- Display info only when it contains a message -->
+              <p>{info}</p>
+         {/if}
           <div
             class="text-[12px] text-[#6b6b6b] font-[400] flex flex-col md:flex-row items-center justify-between"
           >
-            <p>Firmware Version Version 2.0093 | Build 43344</p>
-            <button
-              type="submit"
-              class="ml-[141px] text-[12px] px-6 bg-primary text-white h-[35px] rounded-[20px]"
-            >
-              Download Update
-            </button>
-          </div>
+            <p>Firmware Version Version 2.0093 | Build 43344</p> 
+
+            <button  on:click={fetchUpgradeFirmware} disabled={isUpdating}            
+            class="ml-[141px] text-[12px] px-6 bg-primary text-white h-[35px] rounded-[20px]"
+            >           
+            {isUpdating ? "Updating..." : "Upgrade Firmware"}             
+            </button>             
+            
+          </div>        
+          
           <hr />
         </div>
       </div>

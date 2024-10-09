@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [svelte()],
   server: {
     proxy: {
-      "/api": "http://192.168.0.1/cgi-bin/api.cgi",
+      "/api": "http://192.168.4.4/cgi-bin/api.cgi",
     },
   },
 });

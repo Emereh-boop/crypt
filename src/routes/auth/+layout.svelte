@@ -17,7 +17,7 @@
     >
       <div>Copyright Wicrypt All Right Reserved © 2024</div>
       <div class=" text-gray-100">Powered by Wicrypt OS</div>
-      <div>Firmware Version {"" ?? "-.-.-"}</div>
+      <div>Firmware Version</div>
     </footer>
   </footer></body
 >

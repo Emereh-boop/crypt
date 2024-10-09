@@ -295,6 +295,7 @@ function ChangeWirelessAuthConfig(devname, encryption, key)
     return jsonc.stringify({ success = true, error = nil })
 end
 
+
 function WhitelistedDevices()
     print("\r\n")
     local cursor = io.open("/etc/wicrypt/database/whitelisted_devices.json", "r")
@@ -333,6 +334,13 @@ function DownloadFirmwFile()
         return jsonc.stringify({ error = "Failed to download required files", message = nil, success = false })
     end
 end
+
+function FirmwareUpgrade()
+    print("\r\n")
+    local result = util.exec("sh /etc/wicrypt/shellscripts/systemupgrade.sh")
+    return jsonc.stringify({ data = result, success = true, error = nil })
+end
+
 
 function DataUsage()
     print("\r\n")
@@ -392,9 +400,11 @@ end
 
 function FirmwVersion()
     print("\r\n")
-    local res = util.exec("uci get wicrypt.firmwareAssetRelease.releaseVersion")
+    -- local res = util.exec("uci get wicrypt.firmwareAssetRelease.releaseVersion")
+    local res = util.exec("uci get wicrypt.firmware.version")
     return jsonc.stringify({ data = { firmware_version = res }, success = true, error = nil })
 end
+
 
 local function fetch_post_data()
     local content_length = tonumber(os.getenv("CONTENT_LENGTH"))
@@ -472,6 +482,8 @@ local function api()
             return ChangeWirelessAuthConfig(json_data.devname, json_data.newEncryption, json_data.newkey)
         elseif cmd == "setup_firmw" then
             return DownloadFirmwFile()
+        elseif cmd == "upgrade_firmw" then
+            return FirmwareUpgrade()
         elseif cmd == "whitelisted" then
             return WhitelistedDevices()
         elseif cmd == "whitelist" then
@@ -483,7 +495,7 @@ local function api()
         elseif cmd == "data_usg" then
             return DataUsage()
         elseif cmd == "firmw_version" then
-            return FirmwVersion()
+            return FirmwVersion()       
         elseif cmd == "link_hub" then
             return LinkHub(json_data.code)
         elseif cmd == "validate_session" then
